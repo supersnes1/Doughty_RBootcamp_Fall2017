@@ -455,5 +455,34 @@ plot(log(rmax)~LogLight,xlab="Log Light intensity (muE/m^2/s)", ylab="Log Maximu
 #11.0.0.0.5 Exercise
 ?par
 par(mfcol=c(2,2))
+x <-c(3:8)
+y <- ((5*x)+3)
+plot(y~x,main="Red line")
+abline(a=3,b=5, col="red", lty=1)
 
-plot(rmax~Light,xlab="Light intensity (muE/m^2/s)", ylab="Maximum growth rate rmax (1/d)", main="Data from Fussmann et al. (2000) system",xlim=c(0,120), ylim=c(1,4))
+plot(y~x, main="Blue line")
+abline(a=3,b=5, col="blue",lty=2)
+
+plot(y~x,main="Green line")
+abline(a=3,b=5, col="green",lty=3)
+
+plot(y~x,main="Orange line")
+abline(a=3,b=5, col="orange", lty=6)
+
+#11.0.0.0.6 Exercise
+par(mfcol=c(2,2))
+x <-c(3:8)
+y <- ((5*x)+3)
+plot(y~x,main="Red line")
+abline(a=3,b=5, col="red", lty=1)
+
+plot(y~x, main="Blue line")
+abline(a=3,b=5, col="blue",lty=2)
+
+plot(y~x,main="Green line")
+abline(a=3,b=5, col="green",lty=3)
+
+plot(y~x,main="Orange line")
+abline(a=3,b=5, col="orange", lty=6)
+?dev.print()
+dev.print(device=file("C:/Users/EvanDocuments/GitHub/Doughty_RBootcamp_Fall2017/Section11_0_0_6.pdf")))
