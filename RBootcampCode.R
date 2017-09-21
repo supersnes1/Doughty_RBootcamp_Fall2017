@@ -247,7 +247,7 @@ lines(x,y)
 x <- 1.999999; x; x-2
 x <- 1.9999999999999; x; x-2
 x <- 1.99999999999999999; x; x-2
-###########################
+#The number of entries post-decimal exceeded the alotted number that could be stored as an object.
 
 #9.1.3.0.6 Exercise
 r <- 0.5
@@ -485,4 +485,99 @@ abline(a=3,b=5, col="green",lty=3)
 plot(y~x,main="Orange line")
 abline(a=3,b=5, col="orange", lty=6)
 ?dev.print()
-dev.print(file=("C:/Users/EvanDocuments/GitHub/Doughty_RBootcamp_Fall2017/Section11_0_0_6.pdf"))
+file.extend <- 'C:/Users/EvanDocuments/GitHub/Doughty_RBootcamp_Fall2017/Section11_0_0_6.pdf'
+
+dev.copy(png, 'LineStyles4panel.png')
+dev.off()
+
+
+###
+#12 Loops
+#12.1 for loops
+phi <- 1
+for (k in 1:100) {
+  phi <- 1+1/phi
+  print(c(k,phi))
+}
+a <- 1.1
+b <- 0.001
+T <- seq(from=1,to=200,by=1)
+N <- numeric(length(T))
+n <- 2
+for (t in T) {
+  n <- a*n/(1+b*n)
+  N[t] <- n
+}
+par(mfcol=c(1,1))
+plot(T,N)
+
+#12.1.0.0.1 Gotcha:
+N <- numeric(length(T))
+for (t in 1:length(T)) {
+  n <- a*n/(1+b*n)
+  N[t] <- n
+}
+#12.1.0.0.2 Exercise
+N <- numeric(1); N
+#N is assigned to be an object of a single value at length of T beign equal to 1.
+N <- numeric(0); N
+#N does not get assigned to have a number of values as a vector.
+#These issues propagate into the for loop with both length T=1 and 0 only 
+#going through the loop once before terminating.
+
+###
+#12.2 while loops
+phi <- 20
+k <- 1
+while (k <= 100) {
+  phi <- 1+1/phi
+  print(c(k,phi))
+  k <- k+1
+}
+
+phi <- 20
+conv <- FALSE
+while (!conv) {
+  phi.new <- 1+1/phi
+  conv <- phi==phi.new
+  phi <- phi.new
+}
+
+#12.2.0.0.1 Exercise
+#16 iterations are needed to reach a point where the value of phi fails to change.
+
+phi <- 20
+while (TRUE) {
+  phi.new <- 1+1/phi
+  if (phi==phi.new) break
+  phi <- phi.new
+}
+phi <- 3
+for (k in seq_len(1000)) {
+  phi.new <- 1+1/phi
+  if (phi==phi.new) break
+  phi <- phi.new
+}
+
+#
+a <- 1.1
+b <- 0.001
+T <- seq(from=1,to=200,by=1)
+N <- numeric(length(T))
+n <- 2
+t <- 1
+while (t < length(T)+1) {
+  n <- a*n/(1+b*n)
+  N[t] <- n
+  t <- t+1
+}
+plot(T,N)
+
+#12.3 repeat loops
+phi <- 12
+repeat {
+  phi.new <- 1/(1+phi)
+  if (phi==phi.new) break
+  phi <- phi.new
+}
+
