@@ -45,9 +45,9 @@ count_1000<- hist(mean_heights_1000,breaks=bins, plot=FALSE)$counts
 
 bin.label <- bins[-21]
 
+png(filename="SimulatedAveHeight_Barplot_Doughty.png")
 par(mfrow=c(1,1))
 barplot(rbind(count_100,count_1000),beside=TRUE, col=c("red","blue"), ylim=c(0,500),names.arg=bin.label, xlab ="Average Height (Inches)",ylab = "Count", main="Simulated Average Height of Humans at 100 and 1000 iterations")
 legend(0,450, legend= c("n=100",'n=1000'), col=c("red","blue"),pch=19)
 
-png(filename="SimulatedAveHeight_Barplot_Doughty.png")
 dev.off()

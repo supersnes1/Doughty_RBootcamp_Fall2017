@@ -44,8 +44,8 @@ for(ii in 1:length(years)){
   if(years[ii] %% 2 == 0){
     cat(years[ii], 'Hooray, congressional elections!', sep = '\t', fill = TRUE)
     }
-    if(years[ii] %% 4 == 0){
-      cat(years[ii], 'Hooray, presidential and congressional elections!', sep = '\t', fill = TRUE)
+   if(years[ii] %% 4 == 0){
+      cat(years[ii], 'Hooray, presidential elections!', sep = '\t', fill = TRUE)
     }
 }
 
@@ -122,6 +122,8 @@ compounded
    bankAnnualend[count.year,]<-bankAccounts #track accounts at end of year after compounding of interest
    count.year <- count.year+1
   }
+  rownames(bankAnnualstart) <- c(start.year:end.year)
+  rownames(bankAnnualend) <- c(start.year:end.year)
   bankAnnualstart
   bankAnnualend
  
@@ -144,22 +146,24 @@ while(i <= 17)
 ###
 #Exercise 9
 
-user.input <- readline(prompt="Enter whole integer: ")
-x <- as.integer(user.input)
-
-if(x <= -1)
+nom.Size  <- function(user.input = 0)
 {
-  print("small")
+  x <- as.integer(user.input)
+
+  if(x <= -1)
+  {
+    print("small")
+  }
+
+  if(x > -1 & x < 1)
+  {
+    print("medium")
+  }
+
+  if(x >= 1)
+  {
+    print("big")
+  }
 }
 
-if(x > -1 & x < 1)
-{
-  print("medium")
-}
-
-if(x >= 1)
-{
-  print("big")
-}
-  
-  
+result <- nom.Size(user.input=readline(prompt="Enter whole integer: "))
