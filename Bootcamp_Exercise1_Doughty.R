@@ -4,13 +4,15 @@ getwd()
 ###
 #Exercise 1
 
+
 ###
 #Exercise 2
+
 
 ###
 #Exercise 3
 
-#dogs will initiall be valued at 10 but will be incrimented to 15 once the loop is compelted.
+#dogs will initially be valued at 10 but will be incrimented to 15 once the loop is compelted.
 #meatloaf will be assigned be be 0 initially.  After the for loop meatloaf is set to -30.
 #bubbles is initally assigned to the value 12 but is reassigned to -4 at the end of the for loop.
 
@@ -38,6 +40,7 @@ compounded <- rep(0,length.out=length(bankAccounts))
 
 for (i in 1:length(bankAccounts)) {
   compounded[i] <- interestRate*bankAccounts[i] + bankAccounts[i]; }
+
 compounded
 
 #HINT: variables must be initialized before you can perform operations on them
@@ -52,29 +55,91 @@ compounded
   fun <- c(7.8, 2.1, 10.5);  #deduct
   #and incomes (through TAships) of 
   income <- c(21, 21, 21); #add this
+  
+  num.years <- 5
+  bankAnnual <- matrix(0,num.years,length(bankAccounts))
 
-  for (j in 1:5) {
+  for (j in 1:num.years) {
     for (i in 1:length(bankAccounts)) {
-      #step 1 modify bankAccounts so that amounts reflect income and expenses
-      #step 2 get calculate interest and add to accounts from step 1
-      #you can actually use the line you have already written if you
-      #modify amounts in bankAccounts directly in step 1
+      bankAccounts[i] <- bankAccounts[i]-(house[i]+food[i]+fun[i])+income[i]
+      bankAccounts[i] <- interestRate*bankAccounts[i] + bankAccounts[i]
     }
+    bankAnnual[j,]<-bankAccounts
   }
+  bankAnnual
+  
 ###
 #Exercise 7
+  
   house <- c(4.8, 3.8, 5.7); 
   food<- c(3.5, 4.3, 5.0); 
   fun <- c(7.8, 2.1, 10.5); 
-  
-  #and incomes (through TAships) of 
-  
+  #and incomes (through TAships) of
   income <- c(21, 21, 21);
   
+  bankAccounts <- c(10, 9.2, 5.6); #define bank accounts here
+  interestRate <- 0.0525;   
+  trust.recip <- c(1,3)
+  start.year <- 2015
+  end.year <- 2020
   
+  #track the initial and final values in each account at the start and end of each year
+  count.year <- 1
+  bankAnnualstart <- matrix(0,(end.year-start.year)+1,length(bankAccounts))
+  bankAnnualend <- matrix(0,(end.year-start.year)+1,length(bankAccounts))
   
+  for (j in start.year:end.year) {
+    print(j)
+    bankAnnualstart[count.year,]<-bankAccounts #track accounts at begining of year
+    if(j %% 2 != 0){
+      bankAccounts[trust.recip] <- bankAccounts[trust.recip]+5
+      
+    }
+    for (i in 1:length(bankAccounts)) {
+      bankAccounts[i] <- bankAccounts[i]-(house[i]+food[i]+fun[i])+income[i]
+      bankAccounts[i] <- interestRate*bankAccounts[i] + bankAccounts[i]
+    }
+   bankAnnualend[count.year,]<-bankAccounts #track accounts at end of year after compounding of interest
+   count.year <- count.year+1
+  }
+  bankAnnualstart
+  bankAnnualend
+ 
 ###
-#Exercise 8
+#Exercise 8: use a while loop to sum all numbers from 1:17. You will need to use a counter variable (like index seen in class).
+
+summed.series <- 0
+i <- 1
+
+while(i <= 17) 
+{
+  summed.series <- summed.series + i
   
+  i <- i + 1
+}  
+  summed.series
+  
+  sum(1:17)
+
 ###
 #Exercise 9
+
+user.input <- readline(prompt="Enter whole integer: ")
+x <- as.integer(user.input)
+
+if(x <= -1)
+{
+  print("small")
+}
+
+if(x > -1 & x < 1)
+{
+  print("medium")
+}
+
+if(x >= 1)
+{
+  print("big")
+}
+  
+  
