@@ -1,18 +1,38 @@
 setwd("C:/Users/Evan/Documents/GitHub/Doughty_RBootcamp_Fall2017")
 getwd()
 
+#Evan Doughty
+#9/22/2017
+
 ###
 #Exercise 1
-
+for(i in 1:9)
+{
+  if(i == 9)
+  {
+    cat("*", fill=TRUE)
+  }
+  else 
+  {
+    cat(" ", fill=TRUE)
+  }
+}
 
 ###
 #Exercise 2
-
+for(i in 1:10)
+{
+  cat("*", fill=FALSE)
+  if(i < 10)
+  {
+    cat("&", fill=FALSE) 
+  }
+}
 
 ###
 #Exercise 3
 
-#dogs will initially be valued at 10 but will be incrimented to 15 once the loop is compelted.
+#dogs will initially be valued at 10 but will be incrimented to 15 once the loop is completed.
 #meatloaf will be assigned be be 0 initially.  After the for loop meatloaf is set to -30.
 #bubbles is initally assigned to the value 12 but is reassigned to -4 at the end of the for loop.
 
@@ -25,7 +45,7 @@ for(ii in 1:length(years)){
     cat(years[ii], 'Hooray, congressional elections!', sep = '\t', fill = TRUE)
     }
     if(years[ii] %% 4 == 0){
-      cat(years[ii], 'Hooray, presidential elections!', sep = '\t', fill = TRUE)
+      cat(years[ii], 'Hooray, presidential and congressional elections!', sep = '\t', fill = TRUE)
     }
 }
 
