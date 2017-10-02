@@ -5,7 +5,9 @@ getwd()
 #1A
 source("AnalyzeSNPdata.2017.student.R")
 # Apply the compute_chi_square function to each snp
-pvals <- apply(snps,1,compute_chisquare)
+chisqs <- apply(snps,1,compute_chisquare)
+
+pvals=pchisq(chisqs,1,lower.tail=FALSE)
 
 #1B
 #What proportion of P-values from the test are <0.05?
@@ -30,10 +32,11 @@ log_exp_pvals <- -1*log10(exp_pvals)
 log_sort_pvals <- -1*log10(sort_pvals)
 
 #1G
-min(sort_pvals)
-max(sort_pvals)
-plot(log_exp_pvals,log_sort_pvals, xlab="-log10(expected P-value", ylab="-log10(observed P-value")
-abline(log_exp_pvals~log_sort_pvals)
+min(log_sort_pvals)
+max(log_sort_pvals)
+par(mfrow=c(1,1))
+plot(log_exp_pvals,log_sort_pvals, xlab="-log10(expected P-value", ylab="-log10(observed P-value",pch=19)
+lines(x=0:4,y=0:4, col="red", lty=2, lwd=3)
 
 #2
 #2a
@@ -51,5 +54,5 @@ zz_quant["75%"]
 
 #2D
 plot(density(zz_quant),col="black",lwd=2,xlab="Blood Glucose Level",xlim=c(0,15),main="Distribution of Phenotypes")
-abline(v=zz_quant["25%"],lty=2)
-abline(v=zz_quant["75%"],lty=2)
+abline(v=zz_quant["25%"],lty=2, col="red")
+abline(v=zz_quant["75%"],lty=2, col="red")

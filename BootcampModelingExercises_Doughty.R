@@ -1,6 +1,6 @@
 #Bootcamp Modeling Exercises
 
-#a
+#1a
 #write function for Ricker model
 rickerModel <- function(start.pop=2,time = 2, rr=1,KK=10)
 {
@@ -170,9 +170,38 @@ for(jj in seq(1,length(Klist),1))
   ii <- 1
 }
 
+#install.packages("ggplot2")
+library(ggplot2)
+
 colnames(flatMat) <- c("N","r","K")
 plot1 <- ggplot(as.data.frame(flatMat), aes(x = r, y = K, z = N)) +
   stat_contour()
 
 #Same Result but in single function
 contour(result.Mat)
+
+#Surface Plot
+#install.packages("rgl")
+library(rgl)
+open3d()
+par(mfrow=c(1,1))
+#surface3d(x=rownames(result.Mat),y=colnames(result.Mat), z=result.Mat)
+dim(result.Mat)
+
+#https://www.packtpub.com/mapt/book/big_data_and_business_intelligence/9781849513067/8/ch08lvl1sec08/creating-three-dimensional-surface-plots
+#also found in package information for rgl (https://cran.r-project.org/web/packages/rgl/rgl.pdf)
+#
+
+z <- result.Mat
+x <- 100*(1:nrow(z))
+y <- 100*(1:ncol(z))
+zlim <- range(z)
+zlen <- zlim[2] - zlim[1] + 1
+colorlut <- terrain.colors(zlen)
+col <- colorlut[ z-zlim[1]+1 ]
+rgl.open()
+rgl.surface(x, y, z, color=col, back="lines")
+
+#1H
+#Bifurcated Plot
+matplot(result.Mat, ylab="Population (N)", xlab="r value (10^-1)")
