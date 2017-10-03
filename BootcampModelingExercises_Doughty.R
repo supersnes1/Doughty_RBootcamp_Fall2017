@@ -33,6 +33,7 @@ rickerModel <- function(start.pop=2,time = 2, rr=1,KK=10)
 
 time.series <- rickerModel(start.pop=10,time = 100, rr=1.5,KK=1000)
 
+#######################################################################
 #1b
 #rickerModel(start.pop=10,time = 100, rr=1.5,KK=1000)
 
@@ -51,6 +52,7 @@ time.series_CrazyOc2 <- rickerModel(10,100,5,1000)
 
 #Altering the values for r is key to driving patterns of fluctuation in the model.
 
+#######################################################################
 #1C
 rr.list <- c(-0.5,1,1.5,2,3,5)
 
@@ -64,6 +66,7 @@ for(rr in rr.list)
 }
 dev.off
 
+#######################################################################
 #1D 
 #n0 = 20, K=1000
 nn = 20
@@ -75,6 +78,7 @@ half.Cap <- min(which(nVec >= KK/2))
 cat("First element that is >= K/2 is:",half.Cap)
 cat("Population is >= K/2 at time(t) of:",timeline[half.Cap])
 
+#######################################################################
 #1E
 nn = 20
 KK <- 1000
@@ -83,6 +87,8 @@ time <-100
 iter.len <- 0.1
 rlist <- seq(0.1,0.9,iter.len)
 
+timeline <- seq(0,time,1)
+
 half.time <- rep(0,length.out= length(rlist))
 ht <- 1 #count through half.time
 for(rr in rlist)
@@ -90,13 +96,14 @@ for(rr in rlist)
   nVec <- rickerModel(nn,time,rr,KK)
   half.Cap <- min(which(nVec >= KK/2))
   
-  half.time[ht] <-half.Cap
+  half.time[ht] <-timeline[half.Cap]
   ht <- ht + 1
 }
 
 plot(rlist,half.time, xlab="r Value", ylab=expression("Time t"["k/2"]))
 lines(rlist,half.time)
 
+#######################################################################
 #1F
 
   #initialize variables
@@ -110,7 +117,7 @@ lines(rlist,half.time)
 
   #set of array of plots to graph results
 
-
+#######################################################################
 #1G
   #initialize variables
 nn = 20
@@ -201,7 +208,56 @@ colorlut <- terrain.colors(zlen)
 col <- colorlut[ z-zlim[1]+1 ]
 rgl.open()
 rgl.surface(x, y, z, color=col, back="lines")
-
+#######################################################################
 #1H
 #Bifurcated Plot
-matplot(result.Mat, ylab="Population (N)", xlab="r value (10^-1)")
+nn = 20
+time <-100
+timeline <- seq(0,time,1)
+
+t.select <- 10
+
+iter.lenR <- 0.1
+rlist <- seq(0,4,iter.lenR)
+
+iter.lenK <- 100
+Klist <- seq(500,1000,iter.lenK)
+#intialize storage matrix
+
+result.Mat <- matrix(0,nrow=length(rlist),ncol=length(Klist))
+rownames(result.Mat) <- rlist
+colnames(result.Mat) <- Klist
+#in a for loop run analysis using all combinations of K
+#in a for loop run analsis using all combinations of r
+jj <- 1
+
+for(KK in Klist)
+{
+  ii <- 1
+  for(rr in rlist)
+  {
+    nVec <- rickerModel(nn,time,rr,KK)
+
+    #store results to matrix
+    result.Mat[ii,jj] <- nVec[which(timeline == t.select)]
+    
+    if(rr < max(rlist)) ii <- ii + 1
+    
+  }
+  if(KK < max(Klist)) jj <- jj + 1
+}
+
+matplot(result.Mat, ylab="Population (N)", xlab="r value (10^-1)",type="l",col = c(1:length(colnames(result.Mat))),lwd=2,lty=c(1:length(colnames(result.Mat))),main = paste("Population at time=",t.select))
+legend(x="topleft",legend = colnames(result.Mat), col = c(1:length(colnames(result.Mat))),lwd=2,lty=c(1:length(colnames(result.Mat))),title = "Carrying Capacity")
+
+###
+#write using apply
+###
+
+#open blank plot()
+#make for loops into function
+  #for loops
+    #rickerModel
+  #plot at end of for loops
+  #return
+#attach a legend
